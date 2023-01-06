@@ -1,10 +1,9 @@
 const ci = require("miniprogram-ci");
-const { appid } = require("./src/config/weixin.config");
-const { version } = require("./package.json");
 
-const desc = process.env.CHANGE_TITLE && process.env.BRANCH_NAME && process.env.CHANGE_ID ?
-	`${process.env.CHANGE_TITLE}\n${process.env.BRANCH_NAME} ${process.env.CHANGE_ID}`
-	: `编译`;
+const { version } = require("./package.json");
+const appid = "wxe01f582812d9d742";
+
+const desc = '编译1'
 
 
 const project = new ci.Project({

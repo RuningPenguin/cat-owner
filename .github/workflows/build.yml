@@ -9,19 +9,16 @@ on:
 jobs:
   build:
     steps:
-      - name: 选择 node 版本
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
+          cache: 'npm'
 
-      - name: 下载依赖
-        run: npm install
 
-      - name: 运行构建脚本
-        run: npm run build:dev-weixin
-
-      - name: 部署
-        run: node ci.js $PROJECT_VERSION.$CI_COMMIT_SHORT_SHA.alpha 1 $(git log -1 --pretty=%B)
+      - run: npm install
+      - run: npm run build:dev-weixin
+      - run: node ci.js
 
 
 
