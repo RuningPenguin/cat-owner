@@ -1,20 +1,27 @@
 const argv = process.argv;
 const ci = require("miniprogram-ci");
-const { version } = require("./package.json");
+const { weixin: { desc, dev_version }, version } = require("./package.json");
 const appid = "wxe01f582812d9d742";
-const info = { desc: "编译", robot: 30 };
+const info = { desc, robot: 30, version: dev_version };
+let type = "upload";
 
 argv.forEach(str => {
+	if (str.includes("type")) {
+		type = str.split("=")[1];
+	}
 	if (str.includes("desc")) {
 		info.desc = str.split("=")[1];
 	}
-	if (str.includes("robot")) {
+	if (str.includes("mode")) {
 		const robotMap = {
-			dev: 1,
-			uat: 2,
-			prod: 3
+			dev: () => 1,
+			uat: () => 2,
+			prod: () => {
+				info.version = version;
+				return 3;
+			}
 		};
-		info.robot = robotMap[str.split("=")[1]];
+		info.robot = robotMap[str.split("=")[1]]();
 	}
 });
 
@@ -30,7 +37,6 @@ async function upload() {
 	await ci.upload({
 		...info,
 		project,
-		version,
 		onProgressUpdate: console.log,
 		pagePath: "pages/index/index",
 		setting: {
@@ -45,7 +51,6 @@ async function preview() {
 	await ci.preview({
 		...info,
 		project,
-		version,
 		onProgressUpdate: console.log,
 		pagePath: "pages/index/index", // 预览页面
 		// searchQuery: 'a=1&b=2',  // 预览参数 [注意!]这里的`&`字符在命令行中应写成转义字符`\&`
@@ -58,18 +63,15 @@ async function preview() {
 }
 
 ;(async function() {
-	switch (info.robot) {
-		case 1:
+	switch (type) {
+		case "preview":
 			await preview();
 			break;
-		case 2:
-			await preview();
-			break;
-		case 3:
+		case "upload":
 			await upload();
 			break;
 		default:
-			console.log("using robot: dev|uat|prod");
+			console.log("using robot: preview|upload");
 			break;
 	}
 })();

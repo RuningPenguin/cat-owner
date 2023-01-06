@@ -31,5 +31,5 @@ jobs:
         run: |
           npm install
           npm run build:dev-weixin
-          node ci.js --desc=$message --robot=$branch
+          node ci.js --desc=$message --mode=$branch
 

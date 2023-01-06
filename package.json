@@ -73,5 +73,9 @@
     "sass": "^1.57.1",
     "typescript": "^4.9.4",
     "vite": "3.2.4"
+  },
+  "weixin": {
+    "dev_version": "0.0.2",
+    "desc": "测试一下"
   }
 }
