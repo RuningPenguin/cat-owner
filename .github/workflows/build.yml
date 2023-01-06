@@ -11,10 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - uses: actions/checkout@v3
       - name: 选择 node 版本
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '16.x'
 
       - name: 下载依赖
         run: npm install
