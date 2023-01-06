@@ -23,9 +23,9 @@ jobs:
         env:
           message: ${{ github.event.commits[0].message }}
           branch: ${{ github.ref_name }}
-          branch2: ${{ github.ref }}
+          github: ${{ github }}
         run: |
           echo $message
-          echo $branch2
+          echo $branch
           echo $branch
 
