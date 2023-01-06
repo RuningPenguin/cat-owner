@@ -12,15 +12,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: 获取当前分支
-        env:
-          branch: ${{ steps.extract_branch.outputs.branch }}
-        run: |
-          echo $branch
-
-      - name: 获取提交信息
+      - name: 设置变量
         env:
           message: ${{ github.event.commits[0].message }}
+          branch: ${{ steps }}
           branch2: ${{ github.ref }}
         run: |
           echo $message
