@@ -15,7 +15,7 @@ jobs:
       - name: 设置变量
         env:
           message: ${{ github.event.commits[0].message }}
-          branch: ${{ toJson(job) }}
+          branch: ${{ toJson(github) }}
           branch2: ${{ github.ref }}
         run: |
           echo $message
