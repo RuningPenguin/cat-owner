@@ -3,8 +3,14 @@
 name: auto_deploy
 
 on:
+  # 代码推送时
   push:
-    branches: [dev,uat,master]
+    branches: [ dev, uat, master, main ]
+
+  # 创建tag时
+#  release:
+#    types: [ created ]
+
 
 jobs:
   build:
@@ -12,13 +18,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: 设置变量
         env:
           message: ${{ github.event.commits[0].message }}
-          branch: ${{ toJson(github) }}
+          branch: ${{ github.ref_name }}
           branch2: ${{ github.ref }}
         run: |
           echo $message
           echo $branch2
           echo $branch
- 
+
