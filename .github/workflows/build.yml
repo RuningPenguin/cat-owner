@@ -1,0 +1,43 @@
+# test、preview和master分支默认支持线上部署
+
+stages:
+  - build
+  - deploy
+
+# 小程序版本设置，每次开发新版本需要手动更新
+variables:
+  PROJECT_VERSION: 0.0.1
+
+# 安装依赖&&构建打包
+build test:
+  stage: build
+  only:
+    - dev
+  tags:
+    - f2e
+  script:
+    - cnpm i
+    - npm run build:dev-weixin
+    - node ci.js $PROJECT_VERSION.$CI_COMMIT_SHORT_SHA.alpha 1 $(git log -1 --pretty=%B)
+
+build preview:
+  stage: build
+  only:
+    - uat
+  tags:
+    - f2e
+  script:
+    - cnpm i
+    - npm run build:uat-weixin
+    - node ci.js $PROJECT_VERSION.beta 2 $(git log -1 --pretty=%B)
+
+build prd:
+  stage: build
+  only:
+    - master
+  tags:
+    - f2e
+  script:
+    - cnpm i
+    - npm run build
+    - node ci.js $PROJECT_VERSION 3 $(git log -1 --pretty=%B)
