@@ -15,5 +15,5 @@ jobs:
       - name: ab
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-          run: echo "$GITHUB_CONTEXT"
+        run: echo "$GITHUB_CONTEXT"
  
