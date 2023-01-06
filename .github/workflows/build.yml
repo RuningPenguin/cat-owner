@@ -22,6 +22,5 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
           COMMIT: $GITHUB_CONTEXT.event.commits[0].message
-      - run: echo "$COMMIT"
-      - run: echo "$GITHUB_CONTEXT.ref"
+        run: echo "$COMMIT" "$GITHUB_CONTEXT.ref"
  
