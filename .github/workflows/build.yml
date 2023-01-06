@@ -9,7 +9,7 @@ variables:
   PROJECT_VERSION: 0.0.1
 
 # 安装依赖&&构建打包
-build test:
+build dev:
   stage: build
   only:
     - dev
@@ -20,7 +20,7 @@ build test:
     - npm run build:dev-weixin
     - node ci.js $PROJECT_VERSION.$CI_COMMIT_SHORT_SHA.alpha 1 $(git log -1 --pretty=%B)
 
-build preview:
+build uat:
   stage: build
   only:
     - uat
@@ -31,7 +31,7 @@ build preview:
     - npm run build:uat-weixin
     - node ci.js $PROJECT_VERSION.beta 2 $(git log -1 --pretty=%B)
 
-build prd:
+build prod:
   stage: build
   only:
     - master
