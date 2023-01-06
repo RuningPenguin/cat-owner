@@ -1,43 +1,23 @@
-# test、preview和master分支默认支持线上部署
+name: auto_deploy
 
-stages:
-  - build
-  - deploy
+on:
+  # 代码推送时
+  push:
+    branches: [ dev, uat, master ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-# 小程序版本设置，每次开发新版本需要手动更新
-variables:
-  PROJECT_VERSION: 0.0.1
+    steps:
+      - uses: actions/checkout@v3
 
-# 安装依赖&&构建打包
-build dev:
-  stage: build
-  only:
-    - dev
-  tags:
-    - f2e
-  script:
-    - cnpm i
-    - npm run build:dev-weixin
-    - node ci.js $PROJECT_VERSION.$CI_COMMIT_SHORT_SHA.alpha 1 $(git log -1 --pretty=%B)
-
-build uat:
-  stage: build
-  only:
-    - uat
-  tags:
-    - f2e
-  script:
-    - cnpm i
-    - npm run build:uat-weixin
-    - node ci.js $PROJECT_VERSION.beta 2 $(git log -1 --pretty=%B)
-
-build prod:
-  stage: build
-  only:
-    - master
-  tags:
-    - f2e
-  script:
-    - cnpm i
-    - npm run build
-    - node ci.js $PROJECT_VERSION 3 $(git log -1 --pretty=%B)
+      - name: 设置变量
+        env:
+          message: ${{ github.event.commits[0].message }}
+          branch: ${{ github.ref_name }}
+          branch2: ${{ github.ref }}
+        run: |
+          echo $message
+          echo $branch2
+          echo $branch
