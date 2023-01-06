@@ -18,14 +18,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-        - name: 小程序自动化部署
-          uses: actions/setup-node@v3
-          with:
-            node-version: '16.x'
-            cache: 'npm'
+      - name: 小程序自动化部署
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          cache: 'npm'
 
-        - run: npm install
-        - run: npm run build:dev-weixin
-        - run: node ci.js --desc=${{ github.event.head_commit.message }} --robot=${{ github.ref_name }}
+      - run: npm install
+      - run: npm run build:dev-weixin
+      - run: node ci.js --desc=${{ github.event.head_commit.message }} --robot=${{ github.ref_name }}
 
