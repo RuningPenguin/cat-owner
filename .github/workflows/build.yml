@@ -8,6 +8,8 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
+    
     steps:
       - name: 选择 node 版本
         uses: actions/setup-node@v3
