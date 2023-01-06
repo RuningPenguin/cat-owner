@@ -1,10 +1,17 @@
+# 小程序自动化部署
+
 name: auto_deploy
 
 on:
   # 代码推送时
   push:
-    branches: [ dev, uat, master ]
-    
+    branches: [ dev, uat, master, main ]
+
+  # 创建tag时
+#  release:
+#    types: [ created ]
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,3 +28,4 @@ jobs:
           echo $message
           echo $branch2
           echo $branch
+
