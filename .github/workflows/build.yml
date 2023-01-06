@@ -15,12 +15,12 @@ jobs:
       - name: 获取当前分支
         env:
           STEPS_CONTEXT: ${{ toJson(steps) }}
-          BRANCH: ${{ $STEPS_CONTEXT.extract_branch.outputs.branch }}
+          BRANCH: ${{ STEPS_CONTEXT.extract_branch.outputs.branch }}
         run: echo "$BRANCH"
 
       - name: 获取提交信息
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-          COMMIT: ${{ $GITHUB_CONTEXT.event.commits[0].message }}
+          COMMIT: ${{ GITHUB_CONTEXT.event.commits[0].message }}
         run: echo "$COMMIT"
  
