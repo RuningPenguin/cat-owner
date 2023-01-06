@@ -12,18 +12,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-        
-      - name: Dump steps context
+      - name: 获取当前分支
         env:
           STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
+          BRANCH: $STEPS_CONTEXT.extract_branch.outputs.branch
+        run: echo "$BRANCH"
 
-      - name: ab
+      - name: 获取提交信息
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+          COMMIT: $GITHUB_CONTEXT.event.commits[0].message
+      - run: echo "$COMMIT"
+      - run: echo "$GITHUB_CONTEXT.ref"
  
