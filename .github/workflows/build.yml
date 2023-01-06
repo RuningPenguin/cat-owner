@@ -1,5 +1,4 @@
 # 小程序自动化部署
-
 name: auto_deploy
 
 on:
