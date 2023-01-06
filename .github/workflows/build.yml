@@ -16,7 +16,7 @@ jobs:
         env:
           message: ${{ github.event.commits[0].message }}
           branch: ${{ toJson(job) }}
-          branch2: ${{ github.ref.split('/') }}
+          branch2: ${{ github.ref }}
         run: |
           echo $message
           echo $branch2
