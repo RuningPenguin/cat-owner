@@ -16,11 +16,14 @@ jobs:
         env:
           branch: ${{ steps.extract_branch.outputs.branch }}
         run: |
-          echo $STEPS_CONTEXT
+          echo $branch
 
       - name: 获取提交信息
         env:
           message: ${{ github.event.commits[0].message }}
+          branch2: ${{ github.ref }}
         run: |
           echo $message
+          echo $branch2
+          echo $branch
  
