@@ -26,17 +26,18 @@ const project = new ci.Project({
 });
 
 async function upload() {
-	await ci.upload({
-		...info,
-		project,
-		version,
-		onProgressUpdate: console.log,
-		setting: {
-			es7: true,
-			minify: true,
-			autoPrefixWXSS: true
-		}
-	});
+	console.log(info)
+// 	await ci.upload({
+// 		...info,
+// 		project,
+// 		version,
+// 		onProgressUpdate: console.log,
+// 		setting: {
+// 			es7: true,
+// 			minify: true,
+// 			autoPrefixWXSS: true
+// 		}
+// 	});
 }
 
 upload();
