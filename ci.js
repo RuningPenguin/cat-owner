@@ -5,6 +5,7 @@ const appid = "wxe01f582812d9d742";
 const info = { desc, robot: 30, version: dev_version };
 let type = "upload";
 
+// 修改传来的参数
 argv.forEach(str => {
 	if (str.includes("type")) {
 		type = str.split("=")[1];
@@ -25,6 +26,7 @@ argv.forEach(str => {
 	}
 });
 
+// 初始化小程序项目
 const project = new ci.Project({
 	appid,
 	type: "miniProgram",
@@ -33,8 +35,9 @@ const project = new ci.Project({
 	ignores: ["node_modules/**/*", "src/**/*"]
 });
 
+// 上传
 async function upload() {
-	await ci.upload({
+	const data = await ci.upload({
 		...info,
 		project,
 		onProgressUpdate: console.log,
@@ -45,21 +48,25 @@ async function upload() {
 			autoPrefixWXSS: true
 		}
 	});
+
+	console.log(data);
 }
 
+// 预览
 async function preview() {
-	await ci.preview({
+	const data = await ci.preview({
 		...info,
 		project,
 		onProgressUpdate: console.log,
-		pagePath: "pages/index/index", // 预览页面
+		// pagePath: "pages/index/index", // 预览页面
 		// searchQuery: 'a=1&b=2',  // 预览参数 [注意!]这里的`&`字符在命令行中应写成转义字符`\&`
 		setting: {
 			es7: true,
 			minify: true,
-			autoPrefixWXSS: true
+			// autoPrefixWXSS: true
 		}
 	});
+	console.log(data);
 }
 
 ;(async function() {

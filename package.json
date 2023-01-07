@@ -1,6 +1,6 @@
 {
   "name": "cat-owner",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "scripts": {
     "dev": "npm run serve:dev-weixin",
     "build": "npm run build:prod-weixin",
@@ -75,7 +75,7 @@
     "vite": "3.2.4"
   },
   "weixin": {
-    "dev_version": "0.0.2",
-    "desc": "测试一下"
+    "dev_version": "0.0.1",
+    "desc": "未使用git的自动部署"
   }
 }
