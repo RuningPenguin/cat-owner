@@ -1,6 +1,6 @@
 // 本地存储
 class Storage {
-	private _get(key: string, async: boolean = false) {
+	_get(key: string, async: boolean = false) {
 		if (async) {
 			return new Promise((resolve, reject) => {
 				uni.getStorage({
@@ -14,7 +14,7 @@ class Storage {
 		}
 	}
 
-	private _set(key: string, value: any, async: boolean = false) {
+	_set(key: string, value: any, async: boolean = false) {
 		if (async) {
 			return new Promise((resolve, reject) => {
 				uni.setStorage({
@@ -29,7 +29,7 @@ class Storage {
 		}
 	}
 
-	private _remove(key: string, async: boolean = false) {
+	_remove(key: string, async: boolean = false) {
 		if (async) {
 			return new Promise((resolve, reject) => {
 				uni.removeStorage({
@@ -43,7 +43,7 @@ class Storage {
 		}
 	}
 
-	private _clear(async: boolean = false) {
+	_clear(async: boolean = false) {
 		if (async) {
 			return uni.clearStorage();
 		} else {
@@ -51,7 +51,7 @@ class Storage {
 		}
 	}
 
-	private _info(async: boolean = false) {
+	_info(async: boolean = false) {
 		if (async) {
 			return new Promise((resolve, reject) => {
 				uni.getStorageInfo({
@@ -63,53 +63,54 @@ class Storage {
 			return uni.getStorageInfoSync();
 		}
 	}
+}
 
-	// public
-	get(key: string, async?: boolean) {
+export default function useStorage() {
+	const storageExample = new Storage();
+
+	const get = (key: string, async?: boolean) => {
 		try {
-			return this._get(key, async);
+			return storageExample._get(key, async);
 		} catch (e) {
 			console.error("Store get error:", e);
 		}
-	}
+	};
 
-	set(key: string, val: any, async?: boolean) {
+	const set = (key: string, val: any, async?: boolean) => {
 		try {
-			return this._set(key, val, async);
+			return storageExample._set(key, val, async);
 		} catch (e) {
 			console.error("Store set error:", e);
 		}
-	}
+	};
 
-	remove(key: string, async?: boolean) {
+	const remove = (key: string, async?: boolean) => {
 		try {
-			return this._remove(key, async);
+			return storageExample._remove(key, async);
 		} catch (e) {
 			console.error("Store remove error:", e);
 		}
-	}
+	};
 
-	info(async?: boolean) {
+	const info = (async?: boolean) => {
 		try {
-			return this._info(async);
+			return storageExample._info(async);
 		} catch (e) {
 			console.error("Store info error:", e);
 		}
-	}
+	};
 
-	clear(async?: boolean) {
+	const clear = (async?: boolean) => {
 		try {
-			return this._clear(async);
+			return storageExample._clear(async);
 		} catch (e) {
 			console.error("Store clear error:", e);
 		}
-	}
-}
+	};
 
-const useStorage= () : { storage: Storage } => {
-	const storage = new Storage();
-	return { storage };
-}
-// 不可解构
-export default useStorage
+	const storage = { get, set, remove, clear, info };
+
+	return { storage, ...storage };
+};
+
 
