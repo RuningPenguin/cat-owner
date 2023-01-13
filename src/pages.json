@@ -1,18 +1,52 @@
 {
   "easycom": {
     "custom": {
-      "^u-(.*)": "uview-plus/components/u-$1/u-$1.vue"
+      "^u-(.*)": "uview-plus/components/u-$1/u-$1.vue",
+      "base-(.*)": "./components/base-$1/base-$1.vue"
     }
   },
   "pages": [
     {
+      "title": "铲屎瓜",
       "path": "pages/index/index"
+    },
+    {
+      "title": "我的",
+      "path": "pages/user/index"
     }
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "铲屎瓜",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "backgroundColor": "#F8F8F8",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#707070",
+    "selectedColor": "#1296db",
+    "backgroundColor": "#f8f8f8",
+    "borderStyle": "white",
+    "blurEffect": "dark",
+    "fontSize": "10px",
+    "iconWidth": "24px",
+    "spacing": "3px",
+    "height": "50px",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "瓜瓜",
+        "iconPath": "./static/tabBarIcon/shovel-default.png",
+        "selectedIconPath": "./static/tabBarIcon/shovel-active.png",
+        "visible": true
+      },
+      {
+        "pagePath": "pages/user/index",
+        "text": "我的",
+        "iconPath": "./static/tabBarIcon/user-default.png",
+        "selectedIconPath": "./static/tabBarIcon/user-active.png",
+        "visible": true
+      }
+    ]
   }
 }

@@ -1,18 +1,30 @@
 // 用户信息
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { reactive } from "vue";
+import useStorage from "@/tools/storage";
+import type { Userinfo, UserState, UserStore } from "@/types/store/user";
 
-const useUserStore = defineStore("user", () => {
-	const state = ref({
-		name: "wx",
-		age: 24
+const storage = useStorage();
+
+
+const useUserStore = defineStore("user", (): UserStore => {
+	const state = reactive<UserState>({
+		userinfo: storage.get("userinfo") || {},
+		token: storage.get("token") || ""
 	});
 
-	const addAge = () => {
-		state.value.age++;
+	const setUserinfo = (obj: Userinfo) => {
+		storage.set("userinfo", obj);
+		state.userinfo = obj;
 	};
 
-	return { state, addAge };
+	const setToken = (str: string) => {
+		storage.set("token", str);
+		state.token = str;
+	};
+
+	return { state, setUserinfo, setToken };
 }, { persist: { enabled: true } });
 
 export default useUserStore;
+export {useUserStore}

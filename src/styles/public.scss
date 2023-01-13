@@ -1,1 +1,17 @@
 // 全局样式
+
+Page {
+  box-sizing: border-box;
+  //background: #fafafa;
+  //height: 100%;
+}
+
+text,
+view,
+div,
+span,
+swiper,
+swiper-item,
+scroll-view {
+  box-sizing: border-box;
+}

@@ -38,3 +38,8 @@ interface ImportMeta {
 
 // npm依赖
 declare module "uview-plus"
+
+
+
+// 全局类型
+interface anyObj {[x:string]:any}

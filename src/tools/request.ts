@@ -1,9 +1,10 @@
-import useStorage from "@/tools/storage";
 import { name, version } from "../../package.json";
 import { BASE_URL } from "@/config/globa.config";
 import type { config } from "@/types/tools/request";
+import useUserStore from "@/store/user";
 
-const { storage } = useStorage();
+
+const { state } = useUserStore();
 
 // 请求拦截
 uni.addInterceptor("request", {
@@ -20,7 +21,7 @@ uni.addInterceptor("request", {
 			...header,
 			version,
 			requestFrom: name,
-			token: storage.get("token"),
+			Authorization: `Bearer ${state.token}`,
 			"content-type": "application/json;charset=UTF-8"
 		};
 
@@ -36,7 +37,7 @@ uni.addInterceptor("request", {
 // 响应拦截
 function responseInterception(response: any, resolve: Function, reject: Function) {
 	const { statusCode, data: { data, code, message } } = response;
-	if (statusCode === 200 && code === 200) {
+	if (statusCode >= 200 && statusCode < 300 && code === 200) {
 		return resolve(data);
 	}
 
@@ -45,13 +46,13 @@ function responseInterception(response: any, resolve: Function, reject: Function
 }
 
 class API {
-	requestTask: UniNamespace.RequestTask | null
+	requestTask: UniNamespace.RequestTask | null;
 
 	constructor() {
-		this.requestTask = null
+		this.requestTask = null;
 	}
 
-	private _request(url: string, data?: object, config: config = { method: "GET" }) {
+	private _request<T>(url: string, data?: object, config: config = { method: "GET" }): Promise<T> {
 		const { method, header = {} } = config;
 		return new Promise((resolve, reject) => {
 			this.requestTask = uni.request({
@@ -67,20 +68,20 @@ class API {
 	}
 
 	// app h5 weixin
-	get(url: string, data?: object, config?: config) {
+	get<T>(url: string, data?: object, config?: config): Promise<T> {
 		return this._request(url, data, { ...config, method: "GET" });
 	}
 
-	post(url: string, data?: object, config?: config) {
+	post<T>(url: string, data?: object, config?: config): Promise<T> {
 		return this._request(url, data, { ...config, method: "POST" });
 	}
 
 	// 以下在其他小程序有兼容问题
-	put(url: string, data?: object, config?: config) {
+	put<T>(url: string, data?: object, config?: config): Promise<T> {
 		return this._request(url, data, { ...config, method: "PUT" });
 	}
 
-	del(url: string, data?: object, config?: config) {
+	del<T>(url: string, data?: object, config?: config): Promise<T> {
 		return this._request(url, data, { ...config, method: "DELETE" });
 	}
 
