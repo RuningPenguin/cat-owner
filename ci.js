@@ -43,7 +43,7 @@ async function upload() {
 		onProgressUpdate: console.log,
 		pagePath: "pages/index/index",
 		setting: {
-			es7: true,
+			es5: true,
 			minify: true,
 			autoPrefixWXSS: true
 		}
@@ -61,7 +61,7 @@ async function preview() {
 		// pagePath: "pages/index/index", // 预览页面
 		// searchQuery: 'a=1&b=2',  // 预览参数 [注意!]这里的`&`字符在命令行中应写成转义字符`\&`
 		setting: {
-			es7: true,
+			es5: true,
 			minify: true,
 			// autoPrefixWXSS: true
 		}
