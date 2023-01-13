@@ -1,5 +1,4 @@
 <template>
-<!--	{{userinfo.}}-->
 	<u-button type="primary" text="微信登录" @click="weixinLogin" />
 </template>
 

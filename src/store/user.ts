@@ -27,4 +27,3 @@ const useUserStore = defineStore("user", (): UserStore => {
 }, { persist: { enabled: true } });
 
 export default useUserStore;
-export {useUserStore}

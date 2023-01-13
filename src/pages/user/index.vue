@@ -3,8 +3,9 @@
 
 	<div class="content">
 		<div class="project_logo"></div>
-		<h1 style="text-align: center">{{ state.userinfo.nike_name }}</h1>
-		<weixin />
+    <h1>个人中心</h1>
+
+    <weixin />
 
 
 	</div>
@@ -12,11 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import Weixin from "./components/weixin.vue";
-import useUserStore from "@/store/user";
-
-const { state } = useUserStore();
-
+import Weixin from "@/pages/user/components/weixin.vue";
 </script>
 
 <style lang="scss">
